@@ -27,10 +27,10 @@ public class DraggableWidget extends ClickableWidget {
 
     public DraggableWidget(int x, int y, int width, int height, Boolean enabled, HUDElement element, EditScreen screen) {
         super(x - element.padding, y - element.padding, width + (element.padding * 2), height + (element.padding * 2), Text.empty());
-        this.realX = (double) x;
-        this.realY = (double) y;
-        this.realWidth = (double) width;
-        this.realHeight = (double) height;
+        this.realX = x;
+        this.realY = y;
+        this.realWidth = width;
+        this.realHeight = height;
         this.element = element;
         this.enabled = enabled;
         this.screen = screen;
@@ -50,17 +50,14 @@ public class DraggableWidget extends ClickableWidget {
         if (element.canResize()) {
             context.fill(getX() + getWidth() - 5, getY() + getHeight() - 5, getX() + getWidth(), getY() + getHeight(), borderColor);
         }
-
     }
 
     private boolean isResizing(double mouseX, double mouseY) {
-        boolean resizing = mouseX >= getX() + getWidth() - 5 && mouseY >= getY() + getHeight() - 5 && mouseX <= getX() + getWidth() && mouseY <= getY() + getHeight();
-        return resizing;
+        return mouseX >= getX() + getWidth() - 5 && mouseY >= getY() + getHeight() - 5 && mouseX <= getX() + getWidth() && mouseY <= getY() + getHeight();
     }
 
     @Override
     public void onDrag(double mouseX, double mouseY, double deltaX, double deltaY) {
-
         Window window = MinecraftClient.getInstance().getWindow();
         int wwidth = window.getScaledWidth();
         int wheight = window.getScaledHeight();
@@ -98,8 +95,8 @@ public class DraggableWidget extends ClickableWidget {
             int snappedX = (int) realX;
             int snappedY = (int) realY;
 
-           // LOGGER.info(String.valueOf((snappedX + snappedX + width) / 2));
-           // LOGGER.info(String.valueOf(wwidth));
+            // LOGGER.info(String.valueOf((snappedX + snappedX + width) / 2));
+            // LOGGER.info(String.valueOf(wwidth));
             if (!screen.isCtrlHeld) {
                 if (Math.abs(((snappedX + snappedX + width) / 2) - (wwidth / 2)) < 10) {
                     snappedX = (wwidth / 2) - (width / 2);
@@ -108,16 +105,13 @@ public class DraggableWidget extends ClickableWidget {
                     snappedY = (wheight / 2) - (height / 2);
                 }
             }
-
             setX(snappedX);
             setY(snappedY);
-
         }
         pressed = false;
 
         Rect2i position = getRect();
         Rect2i fixedPosition = HudManager.hudAnchors.get(element.identifier).convertBack(position);
-
 
         HudManager.hudPositions.put(element.identifier, fixedPosition);
     }
@@ -129,7 +123,6 @@ public class DraggableWidget extends ClickableWidget {
 
     @Override
     public void playDownSound(SoundManager soundManager) {
-
     }
 
     @Override
@@ -142,7 +135,6 @@ public class DraggableWidget extends ClickableWidget {
 
     @Override
     public void onRelease(double mouseX, double mouseY) {
-
         if (pressed && !(resizing)) {
             enabled = !enabled;
             if (enabled) {
@@ -182,6 +174,5 @@ public class DraggableWidget extends ClickableWidget {
 
     @Override
     protected void appendClickableNarrations(NarrationMessageBuilder builder) {
-
     }
 }

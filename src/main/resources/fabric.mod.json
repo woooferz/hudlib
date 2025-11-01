@@ -16,10 +16,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"dev.wooferz.hudlib.InfoHUD"
+          "dev.wooferz.hudlib.HudLib"
 		],
 		"client": [
-			"dev.wooferz.hudlib.InfoHUDClient"
+          "dev.wooferz.hudlib.HudLibClient"
 		],
 		"modmenu": [
 			"dev.wooferz.hudlib.ModMenuIntegration"

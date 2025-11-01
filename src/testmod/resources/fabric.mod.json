@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "id": "hudlib-testmod",
+  "version": "0.0.1",
+  "entrypoints": {
+    "client": [
+      "dev.wooferz.hudlib.test.HudLibTest"
+    ]
+  },
+  "mixins": [
+    "hudlibtest.mixins.json"
+  ]
+}

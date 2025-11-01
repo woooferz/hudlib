@@ -1,18 +1,12 @@
 package dev.wooferz.hudlib.hud;
 
-import dev.isxander.yacl3.api.ConfigCategory;
-import dev.isxander.yacl3.api.Option;
-import dev.isxander.yacl3.api.OptionDescription;
 import dev.isxander.yacl3.api.OptionGroup;
-import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
 import dev.wooferz.hudlib.HudAnchor;
-import dev.wooferz.hudlib.screens.DraggableWidget;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("EmptyMethod")
 public abstract class HUDElement implements Comparable<HUDElement> {
-
     public int defaultX;
     public int defaultY;
     public int defaultWidth;
@@ -47,26 +41,24 @@ public abstract class HUDElement implements Comparable<HUDElement> {
     public abstract void render(int x, int y, int width, int height, DrawContext context, float tickDelta);
 
     public void setConfig(HUDConfig config) {
-
     }
+
     public HUDConfig getConfig() {
         return null;
     }
+
     public Class<?> getConfigType() {
         return HUDConfig.class;
     }
 
     public OptionGroup generateConfig() {
-
         return null;
-
     }
 
     public void onDisable() {
-
     }
-    public void onEnable() {
 
+    public void onEnable() {
     }
 
     @Override
@@ -74,18 +66,16 @@ public abstract class HUDElement implements Comparable<HUDElement> {
         return this.identifier.compareTo(o.identifier);
     }
 
-
     public void editorOpened() {
-
     }
 
     public void editorClosed() {
-
     }
 
     public Integer getWidth() {
         return null;
     }
+
     public Integer getHeight() {
         return null;
     }

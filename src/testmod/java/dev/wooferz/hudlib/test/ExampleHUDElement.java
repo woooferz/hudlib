@@ -1,15 +1,13 @@
-package dev.wooferz.hudlib.hud;
+package dev.wooferz.hudlib.test;
 
-import dev.isxander.yacl3.api.ConfigCategory;
 import dev.isxander.yacl3.api.Option;
-import dev.isxander.yacl3.api.OptionDescription;
 import dev.isxander.yacl3.api.OptionGroup;
 import dev.isxander.yacl3.api.controller.ColorControllerBuilder;
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
-import dev.isxander.yacl3.impl.controller.TickBoxControllerBuilderImpl;
 import dev.wooferz.hudlib.HudAnchor;
-import dev.wooferz.hudlib.InfoHUD;
-import dev.wooferz.hudlib.screens.DraggableWidget;
+import dev.wooferz.hudlib.HudLibClient;
+import dev.wooferz.hudlib.hud.HUDConfig;
+import dev.wooferz.hudlib.hud.HUDElement;
 import dev.wooferz.hudlib.utils.TextUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -17,41 +15,27 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
 
 import java.awt.*;
-import static dev.wooferz.hudlib.InfoHUDClient.LOGGER;
 
-public class ExampleHUDElement extends HUDElement{
-
+public class ExampleHUDElement extends HUDElement {
     ExampleHUDConfig config = new ExampleHUDConfig();
 
     public ExampleHUDElement(int defaultX, int defaultY, int defaultWidth, int defaultHeight, int padding) {
-        super("FPS Display", defaultX, defaultY, defaultWidth, defaultHeight, padding, InfoHUD.MOD_ID, "example-hud-element", HudAnchor.HorizontalAnchor.LEFT, HudAnchor.VerticalAnchor.TOP);
+        super("FPS Display", defaultX, defaultY, defaultWidth, defaultHeight, padding, HudLibClient.MOD_ID, "example-hud-element", HudAnchor.HorizontalAnchor.LEFT, HudAnchor.VerticalAnchor.TOP);
     }
 
     @Override
     public void render(int x, int y, int width, int height, DrawContext context, float tickDelta) {
         int padding = 4;
-
-
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-
         int currentFPS = MinecraftClient.getInstance().getCurrentFps();
-
-
-        String text = String.valueOf(currentFPS) + " FPS";
-
+        String text = currentFPS + " FPS";
         int argb = (config.bgColor.getAlpha() << 24) | (config.bgColor.getRed() << 16) | (config.bgColor.getGreen() << 8) | config.bgColor.getBlue();
         context.fill(x, y, x + width, y + 9 + (padding * 2), argb);
-
-
 
         //context.drawCenteredTextWithShadow(textRenderer, text, (width/2)+x, y + padding + 1, config.color.getRGB());
 
         TextUtils.drawText(context, textRenderer, text, (width/2)+x, y + padding + 1, config.color.getRGB(), true, true, config.chroma);
-
-
     }
-
-
 
     @Override
     public void setConfig(HUDConfig x) {
@@ -74,7 +58,7 @@ public class ExampleHUDElement extends HUDElement{
 
     @Override
     public OptionGroup generateConfig() {
-        OptionGroup optionGroup = OptionGroup.createBuilder()
+        return OptionGroup.createBuilder()
                 .name(Text.of(displayName))
                 .option(Option.<Color>createBuilder()
                         .name(Text.of("Text Color"))
@@ -102,8 +86,5 @@ public class ExampleHUDElement extends HUDElement{
                         .build()
                 )
                 .build();
-        return optionGroup;
     }
-
-
 }

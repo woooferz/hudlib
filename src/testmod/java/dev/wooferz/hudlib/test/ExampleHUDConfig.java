@@ -1,6 +1,6 @@
-package dev.wooferz.hudlib.hud;
+package dev.wooferz.hudlib.test;
 
-import net.minecraft.client.util.math.Rect2i;
+import dev.wooferz.hudlib.hud.HUDConfig;
 
 import java.awt.*;
 

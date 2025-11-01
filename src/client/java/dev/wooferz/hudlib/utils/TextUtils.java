@@ -4,7 +4,6 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 
 import java.awt.*;
-import static dev.wooferz.hudlib.InfoHUDClient.LOGGER;
 
 public class TextUtils {
 
@@ -33,7 +32,7 @@ public class TextUtils {
 
             String tmp = String.valueOf(c);
             context.drawText(textRenderer, tmp, rx, y, i, drawShadow);
-            rx += (int) textRenderer.getWidth(tmp);
+            rx += textRenderer.getWidth(tmp);
         }
 
     }

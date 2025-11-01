@@ -10,7 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Scanner;
-import static dev.wooferz.hudlib.InfoHUD.LOGGER;
+import static dev.wooferz.hudlib.HudLibClient.LOGGER;
 
 public class ConfigManager {
     private static ConfigManager instance = null;
@@ -44,7 +44,6 @@ public class ConfigManager {
             LOGGER.info("Config File Not Found!!");
             saveConfig();
         }
-
         //LOGGER.info("Thing: " + this.config.testField);
     }
 
@@ -52,6 +51,7 @@ public class ConfigManager {
         File configFile = fileLocation().toFile();
 
         try {
+            //noinspection ResultOfMethodCallIgnored
             configFile.createNewFile();
             FileWriter writer = new FileWriter(configFile);
             if (config == null) {
@@ -68,8 +68,6 @@ public class ConfigManager {
             LOGGER.error("Unexpected Error.");
         }
     }
-
-
 
     public static ConfigManager getInstance() {
         if (instance == null) {

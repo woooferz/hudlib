@@ -2,11 +2,8 @@ package dev.wooferz.hudlib;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import dev.isxander.yacl3.api.*;
-import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
-import dev.wooferz.hudlib.config.ElementConfig;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
-import static dev.wooferz.hudlib.InfoHUDClient.LOGGER;
 
 
 public class ModMenuIntegration implements ModMenuApi {
@@ -15,8 +12,6 @@ public class ModMenuIntegration implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-
-
         return ModMenuIntegration::finishScreen;
     }
 

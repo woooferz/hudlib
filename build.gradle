@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.7-SNAPSHOT'
+	id 'fabric-loom' version '1.11-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -30,16 +30,44 @@ repositories {
 	}
 }
 
+
+
 loom {
-	splitEnvironmentSourceSets()
+    splitEnvironmentSourceSets()
+}
 
-	mods {
-		"hudlib" {
-			sourceSet sourceSets.main
-			sourceSet sourceSets.client
-		}
-	}
+sourceSets {
+    testmod {
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+        compileClasspath += main.output
+        runtimeClasspath += main.output
+        compileClasspath += client.compileClasspath
+        runtimeClasspath += client.runtimeClasspath
+        compileClasspath += client.output
+        runtimeClasspath += client.output
+    }
+}
 
+loom {
+    mods {
+        "hudlib" {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+            sourceSet sourceSets.testmod
+        }
+        "hudlib-testmod" {
+            sourceSet sourceSets.testmod
+        }
+    }
+    runs {
+        testmod {
+            client()
+            ideConfigGenerated = true
+            name = "Testmod"
+            source sourceSets.testmod
+        }
+    }
 }
 
 dependencies {
