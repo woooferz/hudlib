@@ -11,6 +11,10 @@ import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.Rect2i;
 import net.minecraft.text.Text;
+import static dev.wooferz.hudlib.HudLibClient.LOGGER;
+import static dev.wooferz.hudlib.HudManager.hudEnabled;
+
+import java.util.ArrayList;
 
 public class DraggableWidget extends ClickableWidget {
 
@@ -98,12 +102,81 @@ public class DraggableWidget extends ClickableWidget {
             // LOGGER.info(String.valueOf((snappedX + snappedX + width) / 2));
             // LOGGER.info(String.valueOf(wwidth));
             if (!screen.isCtrlHeld) {
-                if (Math.abs(((snappedX + snappedX + width) / 2) - (wwidth / 2)) < 10) {
+
+                // Code is seperated to be able to add more snap features in the future.
+
+                ArrayList<Integer> snapPointsX = new ArrayList<>();
+                snapPointsX.add((wwidth / 2) - (width / 2));
+
+                for (int i = 0; i < HudManager.hudElements.size(); i++) {
+                    HUDElement el = HudManager.hudElements.get(i);
+                    if (el.equals(element) || !hudEnabled.get(el.identifier)) {
+                        continue;
+                    }
+                    Rect2i transform = el.getTransform();
+                    Rect2i transform2 = element.getTransform();
+
+                    snapPointsX.add(transform.getX() - el.padding);
+                    snapPointsX.add(transform.getX() + transform.getWidth() - el.padding);
+                    snapPointsX.add(transform.getX() - el.padding - transform2.getWidth());
+                    snapPointsX.add(transform.getX() + transform.getWidth() - el.padding - transform2.getWidth());
+                }
+
+                Integer finalPointX = null;
+                Integer bestDistanceX = null;
+                for (int i = 0; i < snapPointsX.size(); i++) {
+                    Integer point = snapPointsX.get(i);
+
+                    int distance = Math.abs(snappedX - point);
+                    if (bestDistanceX == null || distance < bestDistanceX) {
+                        bestDistanceX = distance;
+                        finalPointX = point;
+                    }
+                }
+
+                if (finalPointX != null && bestDistanceX < 8) {
+                    snappedX = finalPointX;
+                }
+
+                ArrayList<Integer> snapPointsY = new ArrayList<>();
+                snapPointsY.add((wheight / 2) - (height / 2));
+
+                for (int i = 0; i < HudManager.hudElements.size(); i++) {
+                    HUDElement el = HudManager.hudElements.get(i);
+                    if (el.equals(element) || !hudEnabled.get(el.identifier)) {
+                        continue;
+                    }
+                    Rect2i transform = el.getTransform();
+                    Rect2i transform2 = element.getTransform();
+
+                    snapPointsY.add(transform.getY() - el.padding);
+                    snapPointsY.add(transform.getY() + transform.getHeight() - el.padding);
+                    snapPointsY.add(transform.getY() - el.padding - transform2.getHeight());
+                    snapPointsY.add(transform.getY() + transform.getHeight() - el.padding - transform2.getHeight());
+                }
+
+                Integer finalPointY = null;
+                Integer bestDistanceY = null;
+                for (int i = 0; i < snapPointsY.size(); i++) {
+                    Integer point = snapPointsY.get(i);
+
+                    int distance = Math.abs(snappedY - point);
+                    if (bestDistanceY == null || distance < bestDistanceY) {
+                        bestDistanceY = distance;
+                        finalPointY = point;
+                    }
+                }
+
+                if (finalPointY != null && bestDistanceY < 8) {
+                    snappedY = finalPointY;
+                }
+
+                /*if (Math.abs(((snappedX + snappedX + width) / 2) - (wwidth / 2)) < 10) {
                     snappedX = (wwidth / 2) - (width / 2);
                 }
                 if (Math.abs(((snappedY + snappedY + height) / 2) - (wheight / 2)) < 10) {
                     snappedY = (wheight / 2) - (height / 2);
-                }
+                }*/
             }
             setX(snappedX);
             setY(snappedY);

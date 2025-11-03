@@ -3,6 +3,7 @@ package dev.wooferz.hudlib.hud;
 import dev.isxander.yacl3.api.OptionGroup;
 import dev.wooferz.hudlib.HudAnchor;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.util.math.Rect2i;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("EmptyMethod")
@@ -17,6 +18,7 @@ public abstract class HUDElement implements Comparable<HUDElement> {
     public boolean renderAnyway = false;
     public HudAnchor.HorizontalAnchor defaultHorizontalAnchor;
     public HudAnchor.VerticalAnchor defaultVerticalAnchor;
+    private Rect2i lastLocation;
 
     public HUDElement(String displayName, int defaultX, int defaultY, int defaultWidth, int defaultHeight, int padding, String modid, String identifier, HudAnchor.HorizontalAnchor defaultHorizontalAnchor, HudAnchor.VerticalAnchor defaultVerticalAnchor) {
         this.defaultX = defaultX;
@@ -78,5 +80,12 @@ public abstract class HUDElement implements Comparable<HUDElement> {
 
     public Integer getHeight() {
         return null;
+    }
+
+    public Rect2i getTransform() {
+        return lastLocation;
+    }
+    public Rect2i setTransform(Rect2i transform) {
+        return lastLocation = transform;
     }
 }

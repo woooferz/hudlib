@@ -60,6 +60,8 @@ public class HudManager {
             if ((hudShown.get(element.identifier) || MinecraftClient.getInstance().currentScreen instanceof EditScreen) && hudEnabled.get(element.identifier)) {
                 Rect2i positionUnanchored = hudPositions.get(element.identifier);
                 Rect2i position = hudAnchors.get(element.identifier).convert(positionUnanchored);
+
+                element.setTransform(position);
                 element.render(position.getX(), position.getY(), position.getWidth(), position.getHeight(), context, tickDelta);
             }
         }
