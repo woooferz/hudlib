@@ -4,6 +4,7 @@ import dev.wooferz.hudlib.HudManager;
 import dev.wooferz.hudlib.ModMenuIntegration;
 import dev.wooferz.hudlib.hud.HUDElement;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.Rect2i;
@@ -106,4 +107,9 @@ public class EditScreen extends Screen {
     public boolean shouldPause() {
         return false;
     }
+
+    @Override
+    public void renderInGameBackground(DrawContext context) {
+    }
+
 }

@@ -41,7 +41,7 @@ public class DraggableWidget extends ClickableWidget {
     }
 
     @Override
-    protected void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
+    protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
         int borderColor = 0xFFFFFFFF;
         int disabledOverlay = 0x55000000;
 
