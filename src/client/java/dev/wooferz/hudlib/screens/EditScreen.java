@@ -112,4 +112,7 @@ public class EditScreen extends Screen {
     public void renderInGameBackground(DrawContext context) {
     }
 
+    @Override
+    public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
+    }
 }
