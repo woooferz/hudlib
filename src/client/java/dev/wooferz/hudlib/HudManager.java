@@ -9,6 +9,7 @@ import dev.wooferz.hudlib.hud.HUDElement;
 import dev.wooferz.hudlib.screens.EditScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.util.math.Rect2i;
 import net.minecraft.text.Text;
 
@@ -45,7 +46,7 @@ public class HudManager {
         }
     }
 
-    public static void render(DrawContext context, float tickDelta) {
+    public static void render(DrawContext context, RenderTickCounter counter) {
 
         int width = context.getScaledWindowWidth();
         int height = context.getScaledWindowHeight();
@@ -62,7 +63,7 @@ public class HudManager {
                 Rect2i position = hudAnchors.get(element.identifier).convert(positionUnanchored);
 
                 element.setTransform(position);
-                element.render(position.getX(), position.getY(), position.getWidth(), position.getHeight(), context, tickDelta);
+                element.render(position.getX(), position.getY(), position.getWidth(), position.getHeight(), context, counter.getTickDelta(true));
             }
         }
 
