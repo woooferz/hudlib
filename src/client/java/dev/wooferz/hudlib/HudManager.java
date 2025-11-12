@@ -63,7 +63,7 @@ public class HudManager {
                 Rect2i position = hudAnchors.get(element.identifier).convert(positionUnanchored);
 
                 element.setTransform(position);
-                element.render(position.getX(), position.getY(), position.getWidth(), position.getHeight(), context, counter.getTickDelta(true));
+                element.render(position.getX(), position.getY(), position.getWidth(), position.getHeight(), context, counter.getFixedDeltaTicks());
             }
         }
 

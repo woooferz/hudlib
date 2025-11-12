@@ -19,6 +19,7 @@ public class CoordinateElement extends BaseTextElement{
         if (player == null) {
             return;
         }
+        renderBox(drawContext, i, i1, getWidth(), 17 * 3);
 
         renderText("X: " + (int) player.getX(), i, i1, i2, i3, drawContext, v, false, 5);
         renderText("Y: " + (int) player.getY(), i, i1 + 17, i2, i3, drawContext, v, false, 5);
@@ -26,7 +27,6 @@ public class CoordinateElement extends BaseTextElement{
 
 
 
-        renderBox(drawContext, i, i1, getWidth(), 17 * 3);
 
     }
 
