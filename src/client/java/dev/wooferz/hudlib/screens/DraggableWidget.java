@@ -4,6 +4,7 @@ import dev.wooferz.hudlib.HudAnchor;
 import dev.wooferz.hudlib.HudManager;
 import dev.wooferz.hudlib.hud.HUDElement;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
@@ -49,7 +50,7 @@ public class DraggableWidget extends ClickableWidget {
             context.fill(getX(), getY(), getX() + getWidth(), getY() + getHeight(), disabledOverlay);
         }
 
-            context.drawBorder(getX(), getY(), getWidth(), getHeight(), borderColor);
+        context.drawStrokedRectangle(getX(), getY(), getWidth(), getHeight(), borderColor);
 
         if (element.canResize()) {
             context.fill(getX() + getWidth() - 5, getY() + getHeight() - 5, getX() + getWidth(), getY() + getHeight(), borderColor);
@@ -61,6 +62,11 @@ public class DraggableWidget extends ClickableWidget {
     }
 
     @Override
+    protected void onDrag(Click click, double offsetX, double offsetY) {
+        onDrag(click.x(), click.y(), offsetX, offsetY);
+        super.onDrag(click, offsetX, offsetY);
+    }
+
     public void onDrag(double mouseX, double mouseY, double deltaX, double deltaY) {
         Window window = MinecraftClient.getInstance().getWindow();
         int wwidth = window.getScaledWidth();
@@ -199,14 +205,23 @@ public class DraggableWidget extends ClickableWidget {
     }
 
     @Override
+    public void onClick(Click click, boolean doubled) {
+        onClick(click.x(), click.y());
+        super.onClick(click, doubled);
+    }
+
     public void onClick(double mouseX, double mouseY) {
         pressed = true;
         resizing = isResizing(mouseX, mouseY) && element.canResize();
 
-        super.onClick(mouseX, mouseY);
     }
 
     @Override
+    public void onRelease(Click click) {
+        onRelease(click.x(), click.y());
+        super.onRelease(click);
+    }
+
     public void onRelease(double mouseX, double mouseY) {
         if (pressed && !(resizing)) {
             enabled = !enabled;
@@ -242,7 +257,6 @@ public class DraggableWidget extends ClickableWidget {
             }
             HudManager.hudPositions.put(element.identifier, anchor.convertBack(getRect()));
         }
-        super.onRelease(mouseX, mouseY);
     }
 
     @Override

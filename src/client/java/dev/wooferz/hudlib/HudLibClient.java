@@ -19,6 +19,7 @@ public class HudLibClient implements ClientModInitializer {
 	public static final String MOD_ID = "hudlib";
 
 	public static KeyBinding openEditorKey;
+	public static final KeyBinding.Category KEY_CATEGORY = KeyBinding.Category.create(Identifier.of(MOD_ID, "keys"));
 	public static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	@Override
@@ -34,7 +35,7 @@ public class HudLibClient implements ClientModInitializer {
 		openEditorKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
 				"key.hudlib.openeditor",
 				InputUtil.GLFW_KEY_RIGHT_SHIFT,
-				"category.hudlib.keys"
+				KEY_CATEGORY
 		));
 		ClientTickEvents.END_CLIENT_TICK.register(HudManager::openEditor);
 

@@ -7,6 +7,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.client.util.math.Rect2i;
 import net.minecraft.text.Text;
 import net.minecraft.client.util.Window;
@@ -69,24 +70,26 @@ public class EditScreen extends Screen {
         super.resize(client, width, height);
     }
 
+
+
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == 341) {
+    public boolean keyPressed(KeyInput input) {
+        if (input.getKeycode() == 341) {
             isCtrlHeld = true;
             settingsButton.active = false;
             settingsButton.visible = false;
         }
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(input);
     }
 
     @Override
-    public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == 341) {
+    public boolean keyReleased(KeyInput input) {
+        if (input.getKeycode() == 341) {
             isCtrlHeld = false;
             settingsButton.active = true;
             settingsButton.visible = true;
         }
-        return super.keyReleased(keyCode, scanCode, modifiers);
+        return super.keyReleased(input);
     }
 
     @Override
