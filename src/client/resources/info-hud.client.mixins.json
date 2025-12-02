@@ -1,8 +1,9 @@
 {
 	"required": true,
-	"package": "dev.wooferz.hudlib.mixin.client",
+	"package": "dev.wooferz.hudlib.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"client": [
+		"ColorPickerWidgetMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
