@@ -48,6 +48,10 @@ public class HudManager {
 
     public static void render(DrawContext context, RenderTickCounter counter) {
 
+        MinecraftClient mc = MinecraftClient.getInstance();
+        if (mc.inGameHud.getDebugHud().shouldShowDebugHud()) { return; }
+        if (mc.options.hudHidden) { return; }
+
         int width = context.getScaledWindowWidth();
         int height = context.getScaledWindowHeight();
 
@@ -58,7 +62,7 @@ public class HudManager {
 
         for (int i = 0; i < hudElements.size(); i++) {
             HUDElement element = hudElements.get(i);
-            if ((hudShown.get(element.identifier) || MinecraftClient.getInstance().currentScreen instanceof EditScreen) && hudEnabled.get(element.identifier)) {
+            if ((hudShown.get(element.identifier) || mc.currentScreen instanceof EditScreen) && hudEnabled.get(element.identifier)) {
                 Rect2i positionUnanchored = hudPositions.get(element.identifier);
                 Rect2i position = hudAnchors.get(element.identifier).convert(positionUnanchored);
 
@@ -70,6 +74,13 @@ public class HudManager {
     }
     public static void openEditor(MinecraftClient minecraftClient) {
         if (openEditorKey.wasPressed()) {
+            if (minecraftClient.inGameHud.getDebugHud().shouldShowDebugHud()) {
+                minecraftClient.inGameHud.getDebugHud().toggleDebugHud();
+            }
+            if (minecraftClient.options.hudHidden) {
+                minecraftClient.options.hudHidden = false;
+            }
+
             minecraftClient.setScreen(new EditScreen(Text.of("")));
         }
     }
