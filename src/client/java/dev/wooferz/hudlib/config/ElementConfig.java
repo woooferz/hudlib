@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class ElementConfig {
     public static final ConfigClassHandler<ElementConfig> HANDLER = ConfigClassHandler.createBuilder(ElementConfig.class)
-            .id(new Identifier("hudlib", "element_config"))
+            .id(Identifier.of("hudlib", "element_config"))
             .serializer(config -> GsonConfigSerializerBuilder.create(config)
                     .setPath(FabricLoader.getInstance().getConfigDir().resolve("hudlib-elements.json5"))
                     .appendGsonBuilder(GsonBuilder::setPrettyPrinting)
