@@ -75,7 +75,7 @@ public class HudManager {
     public static void openEditor(MinecraftClient minecraftClient) {
         if (openEditorKey.wasPressed()) {
             if (minecraftClient.inGameHud.getDebugHud().shouldShowDebugHud()) {
-                minecraftClient.inGameHud.getDebugHud().toggleDebugHud();
+                minecraftClient.debugHudEntryList.setF3Enabled(false);
             }
             if (minecraftClient.options.hudHidden) {
                 minecraftClient.options.hudHidden = false;
