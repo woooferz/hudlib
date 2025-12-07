@@ -48,7 +48,7 @@ public class HudManager {
     public static void render(DrawContext context, float tickDelta) {
 
         MinecraftClient mc = MinecraftClient.getInstance();
-        if (mc.options.debugEnabled) { return; }
+        if (mc.inGameHud.getDebugHud().shouldShowDebugHud()) { return; }
 
         int width = context.getScaledWindowWidth();
         int height = context.getScaledWindowHeight();
@@ -72,8 +72,8 @@ public class HudManager {
     }
     public static void openEditor(MinecraftClient minecraftClient) {
         if (openEditorKey.wasPressed()) {
-            if (minecraftClient.options.debugEnabled) {
-                minecraftClient.options.debugEnabled = false;
+            if (minecraftClient.inGameHud.getDebugHud().shouldShowDebugHud()) {
+                minecraftClient.inGameHud.getDebugHud().toggleDebugHud();
             }
 
             minecraftClient.setScreen(new EditScreen(Text.of("")));
